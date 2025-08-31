@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function CameraScreen() {
+export default function ContactsScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.content}>
-        <ThemedText type="title">Camera Screen</ThemedText>
-        <ThemedText type="subtitle">Business Card Scanner</ThemedText>
+        <ThemedText type="title">Contacts Library</ThemedText>
+        <ThemedText type="subtitle">Scanned Business Cards</ThemedText>
         <ThemedText>
-          This screen will contain the camera interface with bounding box overlay for scanning business cards.
+          This screen will display the list of scanned contacts with search, filtering, and management capabilities.
         </ThemedText>
       </ThemedView>
     </ThemedView>

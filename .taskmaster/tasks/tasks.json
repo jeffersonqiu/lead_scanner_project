@@ -1,0 +1,186 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Project Setup and Core Navigation",
+        "description": "Initialize the React Native project with TypeScript, set up the basic navigation structure, and implement camera permission handling.",
+        "details": "Establish the foundational React Native project using the TypeScript template. Implement a basic navigation stack for key screens like Camera and Contact Library. Integrate permission handling for the camera and storage, ensuring it works on both iOS and Android.",
+        "testStrategy": "Verify that the project builds and runs on both iOS and Android simulators/devices. Confirm that the camera permission prompt appears on first launch and that basic navigation between placeholder screens works as expected.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "To Do",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize React Native Project with TypeScript Template",
+            "description": "Create the foundational React Native project using the official TypeScript template and configure basic project settings.",
+            "dependencies": [],
+            "details": "Use the React Native CLI command `npx react-native init MyApp --template react-native-template-typescript` to generate the project. Set up the application name, bundle identifier, and ensure basic environment configurations (e.g., `.env` files) are in place.",
+            "status": "done",
+            "testStrategy": "Verify that the new project builds and runs successfully on both an iOS simulator and an Android emulator without any compilation or runtime errors."
+          },
+          {
+            "id": 2,
+            "title": "Install and Configure React Navigation",
+            "description": "Integrate the React Navigation library and its core dependencies to enable screen-based navigation within the application.",
+            "dependencies": [],
+            "details": "Add `@react-navigation/native` and `@react-navigation/native-stack` to the project. Install required peer dependencies like `react-native-screens` and `react-native-safe-area-context`. Perform the necessary native setup, including running `pod install` for iOS and updating `MainActivity.java` for Android.",
+            "status": "done",
+            "testStrategy": "Confirm that the project continues to build and run on both platforms after adding the navigation dependencies and applying native code modifications."
+          },
+          {
+            "id": 3,
+            "title": "Implement Navigation Stack with Placeholder Screens",
+            "description": "Create placeholder components for the 'Camera' and 'Contact Library' screens and set up a stack navigator to manage transitions between them.",
+            "dependencies": [],
+            "details": "Develop two basic functional components, `CameraScreen.tsx` and `ContactLibraryScreen.tsx`, each displaying its name. In `App.tsx`, wrap the application in a `NavigationContainer` and configure a `createNativeStackNavigator` with these two screens as routes. Define the initial route.",
+            "status": "in-progress",
+            "testStrategy": "Run the app and verify the initial screen appears. Add a temporary button to navigate from the initial screen to the second screen and confirm the transition works as expected on both iOS and Android."
+          },
+          {
+            "id": 4,
+            "title": "Integrate and Configure Permission Handling Library",
+            "description": "Install and set up the `react-native-permissions` library to handle runtime permission requests for camera and storage access.",
+            "dependencies": [],
+            "details": "Add the `react-native-permissions` package to the project. Configure platform-specific settings by adding usage descriptions (e.g., `NSCameraUsageDescription`) to `Info.plist` for iOS and declaring permissions (e.g., `android.permission.CAMERA`) in `AndroidManifest.xml` for Android.",
+            "status": "pending",
+            "testStrategy": "Rebuild the project on both iOS and Android to ensure it compiles successfully with the new library and native configuration changes. No functional test is required at this stage."
+          },
+          {
+            "id": 5,
+            "title": "Implement Camera Permission Request Logic",
+            "description": "Develop the logic within the Camera screen to check for and request camera permission from the user upon screen load.",
+            "dependencies": [],
+            "details": "In the `CameraScreen.tsx` component, use a `useEffect` hook to call the `react-native-permissions` API to check the current camera permission status. If permission is not already granted, trigger the `request` function to show the native OS prompt. The UI should reflect the permission status (e.g., show a 'Grant Permission' button if denied).",
+            "status": "pending",
+            "testStrategy": "On first launch, navigate to the Camera screen and verify that the native permission prompt appears. Test the app's behavior for both 'Allow' and 'Deny' scenarios. Confirm the prompt does not reappear on subsequent visits if permission was granted."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Camera Capture with Bounding Box Guidance",
+        "description": "Integrate `react-native-vision-camera` to display a live camera feed and overlay a real-time bounding box to guide the user for optimal card capture.",
+        "details": "Use `react-native-vision-camera` for a high-performance camera interface. Implement a frame processor to detect rectangular shapes or text regions in real-time and render an overlay to guide the user. Add a capture button to take a high-resolution photo.",
+        "testStrategy": "Manually test the camera view on physical devices. Confirm the camera feed is smooth and the bounding box overlay appears and adjusts in real-time. Verify that capturing an image saves it correctly to a temporary location.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Integrate On-Device OCR with Google ML Kit",
+        "description": "Process captured business card images using Google ML Kit Text Recognition v2 to extract raw text blocks locally on the device.",
+        "details": "Set up the Google ML Kit Text Recognition v2 module for both iOS and Android. Create a processing service that takes a captured image URI and returns the extracted raw text. Ensure this process is fully on-device and does not require an internet connection.",
+        "testStrategy": "Create unit tests for the OCR service using a set of sample business card images. Verify that the extracted text is accurate (>90% on standard cards) and that the processing time is under 2.5 seconds on a mid-range device.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implement AI-Powered Field Parsing",
+        "description": "Send the raw OCR text to the OpenAI API to parse it into a structured contact JSON object, mapping text to fields like name, company, and email.",
+        "details": "Develop a client to securely communicate with the OpenAI API. Construct a prompt that instructs the model to convert unstructured text blocks into a JSON object conforming to the `Contact` data model. Implement error handling for API failures and malformed responses.",
+        "testStrategy": "Write unit tests for the parsing service with various OCR text samples. Verify that the service correctly parses standard contact information and handles edge cases like missing fields or unusual formatting. Mock the API for testing.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Build Contact Review and Edit Screen",
+        "description": "Create a user interface for users to review the AI-parsed contact information, manually edit any fields, and save the final contact to the library.",
+        "details": "Design a form that is pre-populated with the data from the AI parsing step. Each field (name, title, phone, etc.) should be editable. Include 'Save' and 'Cancel' actions. Upon saving, the contact data should be passed to the local storage service.",
+        "testStrategy": "Perform UI testing to ensure that data is correctly displayed in the form fields. Verify that edits are captured and that the 'Save' action triggers the storage logic with the correct data payload.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement Local Contact Storage and Management",
+        "description": "Set up a local database using MMKV or AsyncStorage to perform CRUD (Create, Read, Update, Delete) operations for contacts.",
+        "details": "Define the final `Contact` data model in TypeScript. Implement a data layer with functions to save, retrieve a list of, update, and delete contact records. Use a performant key-value store like MMKV for fast access.",
+        "testStrategy": "Write unit tests for all CRUD operations. Verify that data persists correctly after the app is closed and reopened. Test performance with a large number of contacts (e.g., 1000+).",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Develop Contact Library UI with Search and Tagging",
+        "description": "Create the main library screen to display a list of saved contacts, with functionality for searching, filtering, and applying tags.",
+        "details": "Build a virtualized list (e.g., FlashList) to display all saved contacts. Implement a search bar that filters the list in real-time based on contact name, company, etc. Add UI for creating tags and applying them to contacts, and filtering the list by one or more tags.",
+        "testStrategy": "Manually test the UI. Verify that the contact list scrolls smoothly. Test the search functionality with various queries. Test adding, removing, and filtering by tags on single and multiple contacts.",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement Bulk Export to CSV and vCard",
+        "description": "Allow users to select multiple contacts from the library and export them as a single CSV or vCard (.vcf) file using the native share sheet.",
+        "details": "Add a multi-select mode to the contact library list. Implement logic to generate vCard 4.0 and CSV formatted strings from the selected contact data. Integrate with the native Share API to allow users to save the file or send it to another app.",
+        "testStrategy": "Select a batch of 10+ contacts and trigger the export for both CSV and vCard formats. Open the exported files in a compatible application (e.g., Excel, Google Contacts) and verify that all data is present and correctly formatted.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement Sync to Native Device Contacts",
+        "description": "Enable users to select one or more contacts from the app library and save them to the device's native contacts application.",
+        "details": "Integrate a library like `react-native-contacts` to interact with the native contacts API. Implement the logic to map the app's contact model to the native contact structure. Handle permissions and provide user feedback on success or failure.",
+        "testStrategy": "In the multi-select mode, choose several contacts and use the 'Sync to Native' feature. Check the native iOS/Android contacts app to confirm that the new contacts were added correctly with all relevant fields populated.",
+        "priority": "low",
+        "dependencies": [
+          7
+        ],
+        "status": "To Do",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Enhance Accessibility and Optimize Performance",
+        "description": "Improve app accessibility by adding support for VoiceOver/TalkBack and conduct performance profiling and optimization for a production-ready experience.",
+        "details": "Review all UI components and add `accessible`, `accessibilityLabel`, and other relevant props for screen readers. Use profiling tools (e.g., Flipper, Xcode Instruments) to identify and fix performance bottlenecks in rendering, processing, and memory usage.",
+        "testStrategy": "Enable VoiceOver (iOS) and TalkBack (Android) and navigate through the entire app to ensure all elements are properly labeled and usable. Measure app launch time, memory usage, and OCR processing speed to ensure they meet the defined performance requirements.",
+        "priority": "low",
+        "dependencies": [
+          8,
+          9
+        ],
+        "status": "To Do",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-08-31T09:45:14.566Z",
+      "updated": "2025-08-31T09:47:21.126Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
