@@ -2,8 +2,8 @@ import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
 export interface PermissionStatus {
-  camera: boolean;
-  mediaLibrary: boolean;
+    camera: boolean;
+    mediaLibrary: boolean;
 }
 
 /**
@@ -11,13 +11,13 @@ export interface PermissionStatus {
  * @returns Promise<boolean> - true if permission granted, false otherwise
  */
 export async function requestCameraPermission(): Promise<boolean> {
-  try {
-    const { status } = await Camera.requestCameraPermissionsAsync();
-    return status === 'granted';
-  } catch (error) {
-    console.error('Error requesting camera permission:', error);
-    return false;
-  }
+    try {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        return status === 'granted';
+    } catch (error) {
+        console.error('Error requesting camera permission:', error);
+        return false;
+    }
 }
 
 /**
@@ -25,13 +25,13 @@ export async function requestCameraPermission(): Promise<boolean> {
  * @returns Promise<boolean> - true if permission granted, false otherwise
  */
 export async function requestMediaLibraryPermission(): Promise<boolean> {
-  try {
-    const { status } = await MediaLibrary.requestPermissionsAsync();
-    return status === 'granted';
-  } catch (error) {
-    console.error('Error requesting media library permission:', error);
-    return false;
-  }
+    try {
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        return status === 'granted';
+    } catch (error) {
+        console.error('Error requesting media library permission:', error);
+        return false;
+    }
 }
 
 /**
@@ -39,23 +39,23 @@ export async function requestMediaLibraryPermission(): Promise<boolean> {
  * @returns Promise<PermissionStatus> - current status of all permissions
  */
 export async function checkPermissions(): Promise<PermissionStatus> {
-  try {
-    const [cameraStatus, mediaLibraryStatus] = await Promise.all([
-      Camera.getCameraPermissionsAsync(),
-      MediaLibrary.getPermissionsAsync(),
-    ]);
+    try {
+        const [cameraStatus, mediaLibraryStatus] = await Promise.all([
+            Camera.getCameraPermissionsAsync(),
+            MediaLibrary.getPermissionsAsync(),
+        ]);
 
-    return {
-      camera: cameraStatus.status === 'granted',
-      mediaLibrary: mediaLibraryStatus.status === 'granted',
-    };
-  } catch (error) {
-    console.error('Error checking permissions:', error);
-    return {
-      camera: false,
-      mediaLibrary: false,
-    };
-  }
+        return {
+            camera: cameraStatus.status === 'granted',
+            mediaLibrary: mediaLibraryStatus.status === 'granted',
+        };
+    } catch (error) {
+        console.error('Error checking permissions:', error);
+        return {
+            camera: false,
+            mediaLibrary: false,
+        };
+    }
 }
 
 /**
@@ -63,21 +63,21 @@ export async function checkPermissions(): Promise<PermissionStatus> {
  * @returns Promise<PermissionStatus> - status after requesting permissions
  */
 export async function requestAllPermissions(): Promise<PermissionStatus> {
-  try {
-    const [cameraGranted, mediaLibraryGranted] = await Promise.all([
-      requestCameraPermission(),
-      requestMediaLibraryPermission(),
-    ]);
+    try {
+        const [cameraGranted, mediaLibraryGranted] = await Promise.all([
+            requestCameraPermission(),
+            requestMediaLibraryPermission(),
+        ]);
 
-    return {
-      camera: cameraGranted,
-      mediaLibrary: mediaLibraryGranted,
-    };
-  } catch (error) {
-    console.error('Error requesting all permissions:', error);
-    return {
-      camera: false,
-      mediaLibrary: false,
-    };
-  }
+        return {
+            camera: cameraGranted,
+            mediaLibrary: mediaLibraryGranted,
+        };
+    } catch (error) {
+        console.error('Error requesting all permissions:', error);
+        return {
+            camera: false,
+            mediaLibrary: false,
+        };
+    }
 }

@@ -33,7 +33,7 @@ export default function CameraScreen() {
   return (
     <PermissionRequest onPermissionsGranted={handlePermissionsGranted}>
       {permissionsGranted ? (
-        <CameraView 
+        <CameraView
           onCapture={handleCapture}
           onError={handleCameraError}
         />
