@@ -9,7 +9,7 @@
         "testStrategy": "Verify that the project builds and runs on both iOS and Android simulators/devices. Confirm that the camera permission prompt appears on first launch and that basic navigation between placeholder screens works as expected.",
         "priority": "high",
         "dependencies": [],
-        "status": "To Do",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -35,7 +35,7 @@
             "description": "Create placeholder components for the 'Camera' and 'Contact Library' screens and set up a stack navigator to manage transitions between them.",
             "dependencies": [],
             "details": "Develop two basic functional components, `CameraScreen.tsx` and `ContactLibraryScreen.tsx`, each displaying its name. In `App.tsx`, wrap the application in a `NavigationContainer` and configure a `createNativeStackNavigator` with these two screens as routes. Define the initial route.",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": "Run the app and verify the initial screen appears. Add a temporary button to navigate from the initial screen to the second screen and confirm the transition works as expected on both iOS and Android."
           },
           {
@@ -44,7 +44,7 @@
             "description": "Install and set up the `react-native-permissions` library to handle runtime permission requests for camera and storage access.",
             "dependencies": [],
             "details": "Add the `react-native-permissions` package to the project. Configure platform-specific settings by adding usage descriptions (e.g., `NSCameraUsageDescription`) to `Info.plist` for iOS and declaring permissions (e.g., `android.permission.CAMERA`) in `AndroidManifest.xml` for Android.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Rebuild the project on both iOS and Android to ensure it compiles successfully with the new library and native configuration changes. No functional test is required at this stage."
           },
           {
@@ -53,7 +53,7 @@
             "description": "Develop the logic within the Camera screen to check for and request camera permission from the user upon screen load.",
             "dependencies": [],
             "details": "In the `CameraScreen.tsx` component, use a `useEffect` hook to call the `react-native-permissions` API to check the current camera permission status. If permission is not already granted, trigger the `request` function to show the native OS prompt. The UI should reflect the permission status (e.g., show a 'Grant Permission' button if denied).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "On first launch, navigate to the Camera screen and verify that the native permission prompt appears. Test the app's behavior for both 'Allow' and 'Deny' scenarios. Confirm the prompt does not reappear on subsequent visits if permission was granted."
           }
         ]
@@ -69,7 +69,61 @@
           1
         ],
         "status": "To Do",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Setup `react-native-vision-camera` and Display Live Feed",
+            "description": "Install and configure the `react-native-vision-camera` library, handle necessary camera permissions for iOS and Android, and implement a basic component to display a full-screen live camera feed.",
+            "dependencies": [],
+            "details": "Follow the official installation guide for `react-native-vision-camera`, including adding required permissions to AndroidManifest.xml and Info.plist. Implement permission requests using the library's API. Create a React component that renders the `<Camera>` element, ensuring it is active and correctly configured to show the back camera feed.",
+            "status": "done",
+            "testStrategy": "Run the app on physical iOS and Android devices. Verify the permission prompt appears on first launch. After granting permission, confirm that a smooth, full-screen, and correctly oriented camera feed is displayed."
+          },
+          {
+            "id": 2,
+            "title": "Implement Frame Processor for Real-Time Text Detection",
+            "description": "Integrate a frame processor to analyze the camera feed in real-time. Use a text recognition plugin, like ML Kit, to detect the bounding boxes of text blocks on the feed.",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Add the `frameProcessor` prop to the `<Camera>` component. Use a worklet function for the processor. Integrate a library like `vision-camera-ocr` or `react-native-mlkit-text-recognition` to process the `Frame` object. The processor should return an array of detected text blocks with their bounding box coordinates.",
+            "status": "pending",
+            "testStrategy": "Point the camera at a business card or any document with text. Log the output of the frame processor to the console. Confirm that arrays of text blocks and their corresponding bounding box coordinates are being logged in real-time."
+          },
+          {
+            "id": 3,
+            "title": "Render Dynamic Bounding Box Overlay",
+            "description": "Develop a UI component that takes the coordinates from the frame processor and renders a bounding box overlay on top of the camera view. The overlay should guide the user by highlighting the detected card.",
+            "dependencies": [
+              "2.2"
+            ],
+            "details": "Use a state variable to hold the bounding box data from the frame processor. Render an absolutely positioned `<View>` on top of the camera preview. Bind its style (top, left, width, height) to the state. Implement logic to transform the coordinates from the frame's resolution to the screen's resolution and orientation.",
+            "status": "pending",
+            "testStrategy": "On a physical device, point the camera at a business card. Verify that a bounding box appears around the card's text. Move the camera and the card to confirm the box adjusts its position and size smoothly and accurately in real-time."
+          },
+          {
+            "id": 4,
+            "title": "Add Capture Button and Photo-Taking Logic",
+            "description": "Implement a UI button that, when pressed, triggers the `takePhoto` method of the `react-native-vision-camera` instance to capture a high-resolution image of the current view.",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Create a `useRef` for the `<Camera>` component to access its methods. Add a `<TouchableOpacity>` or a custom button component to the UI, overlaid on the camera view. The button's `onPress` handler should call `cameraRef.current.takePhoto()` with options set for high resolution and quality.",
+            "status": "pending",
+            "testStrategy": "Press the capture button while the camera view is active. Confirm the app does not crash and that the `takePhoto` promise resolves successfully. Log the path of the saved photo to verify it was created in the device's temporary directory."
+          },
+          {
+            "id": 5,
+            "title": "Handle and Store Captured Image Path",
+            "description": "After a photo is successfully captured, process the result by storing the image file's path. This prepares the image to be passed to the next step in the workflow, such as OCR processing.",
+            "dependencies": [
+              "2.4"
+            ],
+            "details": "In the `onPress` handler for the capture button, await the result from `takePhoto()`. The result object contains the `path` to the captured image. Store this path in a state variable or pass it as a parameter using a navigation library to a confirmation or processing screen.",
+            "status": "pending",
+            "testStrategy": "After capturing an image, verify that the application logic correctly receives the image path. If navigating to a new screen, confirm the path is passed correctly. Manually check the device's file system (if possible) or use a file system library to confirm the image file exists at the specified path."
+          }
+        ]
       },
       {
         "id": 3,
@@ -179,7 +233,7 @@
     ],
     "metadata": {
       "created": "2025-08-31T09:45:14.566Z",
-      "updated": "2025-08-31T09:47:21.126Z",
+      "updated": "2025-08-31T10:13:25.790Z",
       "description": "Tasks for master context"
     }
   }
