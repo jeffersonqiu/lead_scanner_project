@@ -14,30 +14,43 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#2E7D32', // Green accent color
+        tabBarInactiveTintColor: '#666666', // Inactive color
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderTopWidth: 1,
+            borderTopColor: '#E0E0E0',
+            height: 90,
+            paddingBottom: 20,
+            paddingTop: 10,
           },
-          default: {},
+          android: {
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderTopWidth: 1,
+            borderTopColor: '#E0E0E0',
+            height: 90,
+            paddingBottom: 20,
+            paddingTop: 10,
+          },
         }),
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Scan',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="camera.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={24} name="camera.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="contacts"
         options={{
           title: 'Contacts',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.2.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={24} name="person.2.fill" color={color} />,
         }}
       />
     </Tabs>

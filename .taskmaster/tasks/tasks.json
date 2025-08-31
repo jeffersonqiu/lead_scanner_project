@@ -229,11 +229,123 @@
         ],
         "status": "To Do",
         "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Redesign Camera UI for Improved Layout and Cohesion",
+        "description": "Revamped the camera screen's UI with a modern, cohesive layout. The update improves the spacing and visual integration of the capture button, flash controls, and a new settings button, creating a more professional and balanced user experience.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "medium",
+        "details": "The UI redesign is complete. Key changes include: 1. Reduced the vertical spacing between the bottom controls and the main tab bar to 90px for a tighter layout. 2. Modernized the flash button with a glassmorphism effect. 3. Redesigned the capture button with improved shadows and contrast for better prominence. 4. Added a new settings button on the right side of the control bar to balance the flash button. 5. Improved the styling of the instruction text overlay with better borders and spacing.",
+        "testStrategy": "1. Visually inspect the new camera UI on multiple physical iOS and Android devices with different screen sizes (e.g., iPhone SE, iPhone Pro Max, small/large Android phones) to confirm layout integrity and responsiveness. 2. Verify that the capture button, flash toggle, and new settings button are all fully functional and easily tappable. 3. Confirm that the new control layout does not obscure the camera's bounding box guidance during card scanning. 4. Perform an accessibility check using VoiceOver/TalkBack to ensure all new and rearranged UI elements are properly labeled and navigable.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "",
+            "description": "Reduce spacing between controls and tab bar to 90px.",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "",
+            "description": "Modernize flash button with a glassmorphism effect.",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "",
+            "description": "Redesign capture button with improved shadows and contrast.",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "",
+            "description": "Add a balanced settings button to the control bar.",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "",
+            "description": "Improve styling for the instruction text overlay.",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Implement Modern Camera UI Inspired by Mobbin Design Patterns",
+        "description": "Redesign the camera interface to align with modern mobile UI patterns, featuring a professional layout with improved controls, a dual-ring capture button, and refined visual elements for a polished user experience.",
+        "details": "Implement a complete visual overhaul of the camera screen based on Mobbin design inspirations. Key implementation points include: 1) Top Controls: A translucent top bar with a close ('X') icon on the left and a flash toggle icon on the right. 2) Bottom Controls: A bottom bar containing a gallery preview icon on the left, a settings (cog) icon on the right, and the main capture button in the center. 3) Capture Button: Create a dual-ring capture button; a larger, semi-transparent outer ring for visual presence and a smaller, solid inner circle for the touch target. 4) Bounding Box: Restyle the existing bounding box from Task 2 with rounded corners, a subtle outer glow, and increased line weight for better visibility without being distracting. 5) Spacing & Hierarchy: Ensure all elements are aligned to a grid with consistent spacing and padding to establish a clear visual hierarchy and a clean, professional aesthetic.",
+        "testStrategy": "1. Perform visual regression testing on multiple iOS and Android devices with varying screen sizes and aspect ratios to ensure layout integrity. 2. Verify the functionality of all interactive elements: close button navigates back, flash toggle cycles states (auto/on/off), gallery icon navigates to the contact library, and settings icon opens the settings view. 3. Confirm the dual-ring capture button correctly triggers the photo capture action. 4. Visually inspect the redesigned bounding box to ensure the new styling (rounded corners, glow) is applied correctly. 5. Compare the final implementation against design mockups or Mobbin reference patterns to ensure aesthetic goals are met.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Implement Expensify-Inspired Camera UI with Mode Selection",
+        "description": "Redesign the camera screen to mirror the Expensify UI, featuring a clean navigation header, a mode selection bar for Manual/Scan/Gallery, and a well-spaced bottom control bar.",
+        "details": "1. **Navigation Header:** Implement a fixed top header component. On the left, add a back button (chevron icon) that navigates to the previous screen. In the center, display the static title 'Add Expense'. The header should have a solid background and be separate from the camera view.\n2. **Mode Selection Bar:** Below the header, create a segmented control with three options: 'Manual', 'Scan', and 'Gallery'. 'Scan' should be the default selected mode. The active mode must be visually distinct. Tapping 'Scan' shows the camera, while 'Gallery' should trigger the device's image picker.\n3. **Bottom Control Bar:** Implement a bottom-aligned container with professional spacing. On the left, place an icon button to open the device's photo gallery. In the center, add a large, circular, solid green capture button as the primary action. On the right, include an icon button for flash control that cycles through modes (auto, on, off).\n4. **Layout & Styling:** Ensure all elements are properly spaced with no overlaps, creating a clean, modern aesthetic. The layout must be responsive and adapt to various screen sizes. This implementation will replace the UI from previous camera redesign tasks (Task 11, 12).",
+        "testStrategy": "1. **Component Verification:** Confirm the navigation header is present with a functional back button and correct title. Verify the mode selection bar displays all three options with 'Scan' as the default. Check that the bottom control bar contains the gallery icon, green capture button, and flash icon in the correct positions.\n2. **Functional Testing:** Tap the back button and confirm it dismisses the camera view. Tap each mode in the selection bar and verify the UI state changes correctly; tapping 'Gallery' must launch the system image picker. Tap the flash icon and confirm it cycles through its states and updates the icon. Tap the green capture button and verify it triggers the image capture function.\n3. **Visual & Layout Testing:** Perform visual checks on multiple iOS and Android devices with different screen sizes (e.g., iPhone SE, iPhone Pro Max) to ensure consistent spacing, alignment, and no element overlaps or clipping.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Implement App-Wide UI Consistency and Design System",
+        "description": "Resolve UI inconsistencies across the application by establishing and applying a unified, Expensify-inspired design system, including a redesigned tab bar, a consistent color scheme, and standardized element styling.",
+        "details": "1. **Global Design System:** Create a central theme file (e.g., `theme.ts`) that exports design tokens for colors (primary, secondary, text, background, error), typography (font families, sizes, weights), spacing units (based on a 4px or 8px grid), and border-radius values. This system should be based on the Expensify-inspired aesthetic from Task #13.\n2. **Tab Bar Redesign:** Implement a new custom `Scan/Contacts` tab bar component. It must match the Expensify design language, featuring clean lines, specific iconography, and clear active/inactive state styling that is cohesive with the camera screen's mode selector.\n3. **Camera Screen Fix:** On the camera screen, adjust the CSS for the instruction text overlay. Increase its `bottom` or set a `top` value to position it higher on the screen, ensuring it never overlaps with the capture button or bottom controls on any device aspect ratio.\n4. **Component Refactoring:** Audit and refactor all major UI components across the app (Camera, Contact Library, etc.) to consume values from the new global theme file. This ensures all buttons, headers, list items, and input fields adhere to the same design language with proper spacing and modern aesthetics.",
+        "testStrategy": "1. **Visual Regression Testing:** Perform a visual review on multiple iOS and Android devices with different screen sizes. Compare the Camera screen and the Contact Library screen to ensure they share a consistent visual identity (colors, fonts, component styles).\n2. **Camera UI Verification:** Open the camera screen and confirm the instruction text is positioned correctly above the capture button and does not overlap on small screens (e.g., iPhone SE).\n3. **Tab Bar Functionality:** Verify the redesigned `Scan/Contacts` tab bar is visually aligned with the Expensify design. Test navigation between tabs and confirm that active/inactive states are styled correctly.\n4. **Design System Audit:** Inspect individual components (buttons, text inputs, headers) on all available screens. Confirm they use the color, typography, and spacing values defined in the central theme file.",
+        "status": "done",
+        "dependencies": [
+          7,
+          13
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Simplify Camera UI for Focused Scanning Experience",
+        "description": "Refactor the camera UI to create a cleaner, more focused scanning experience by removing the mode selection bar and relocating secondary controls to the top navigation.",
+        "details": "1. **Remove Mode Selection Bar:** Completely remove the 'Manual'/'Scan'/'Gallery' segmented control component introduced in Task #13. The camera screen will now default to and exclusively use the scanning functionality. 2. **Refactor Top Navigation:** Implement a clean top navigation bar. Position a gallery icon button on the left and a flash toggle icon button on the right. Ensure a back/close button is also present for navigation. 3. **Simplify Bottom Controls:** Remove all controls from the bottom bar except for the main capture button. This button should remain centered and styled according to the design system from Task #14. 4. **Layout Readjustment:** Adjust the main camera view to occupy the space previously used by the mode selection bar, creating a larger, more immersive preview. Re-evaluate and adjust the vertical spacing of the bottom capture button for optimal ergonomics.",
+        "testStrategy": "1. **UI Verification:** On multiple iOS and Android devices with varying screen sizes, confirm that the mode selection bar is no longer visible. Verify the top navigation bar correctly displays the gallery and flash buttons. Ensure the bottom control area contains only the centered capture button. 2. **Functional Testing:** Tap the gallery button and confirm it navigates to the correct screen. Tap the flash button and verify it cycles through flash states (auto/on/off) and that the camera flash works correctly on capture. Confirm the capture button successfully takes a photo. 3. **Regression Testing:** Ensure that the core camera preview and the bounding box guidance from Task #2 remain fully functional and are not negatively impacted by the layout changes.",
+        "status": "done",
+        "dependencies": [
+          14
+        ],
+        "priority": "medium",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-08-31T09:45:14.566Z",
-      "updated": "2025-08-31T10:13:25.790Z",
+      "updated": "2025-08-31T10:54:32.587Z",
       "description": "Tasks for master context"
     }
   }
